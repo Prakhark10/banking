@@ -1,0 +1,7 @@
+create database hni;
+use hni;
+ create table rolelogin(uname varchar(10),password varchar(10),role varchar(10));
+ create table register(uname varchar(10),password varchar(10),email varchar(20),idproof varchar(16),DOB varchar(30),phno varchar(10),role varchar(10));
+ 
+
+
