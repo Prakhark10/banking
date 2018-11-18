@@ -1,0 +1,86 @@
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.sql.Connection;
+import java.sql.Date;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+public class AllEmployeesServlet extends HttpServlet {
+  protected void doGet(HttpServletRequest request, HttpServletResponse response)
+      throws ServletException, IOException {
+ 
+	
+    try {
+     String url = "jdbc:mysql://localhost:3306/hni";
+		Connection myConn;
+		try{
+			
+			myConn = DriverManager.getConnection(url,"root","");
+			Statement myStmt = myConn.createStatement();
+			
+			ResultSet myRs = myStmt.executeQuery("select * from wealth_manager_requests");
+			
+			String WMName = myRs.getString("WMName");
+			if WMName.equals("WM1"){
+				System.out.println(myRs.getString("HNName"));
+				System.out.println(myRs.getDate("Date"));
+				Timestamp timestamp = resultSet.getTimestamp(i);
+				if (timestamp != null)
+					date = new java.util.Date(timestamp.getTime()));
+				
+			
+			}
+			
+			
+			if WMName.equals("WM2"){
+				System.out.println(myRs.getString("HNName"));
+				System.out.println(myRs.getDate("Date"));
+				Timestamp timestamp = resultSet.getTimestamp(i);
+				if (timestamp != null)
+					date = new java.util.Date(timestamp.getTime()));
+				
+			
+			}
+			
+			if WMName.equals("WM3"){
+				System.out.println(myRs.getString("HNName"));
+				System.out.println(myRs.getDate("Date"));
+				Timestamp timestamp = resultSet.getTimestamp(i);
+				if (timestamp != null)
+					date = new java.util.Date(timestamp.getTime()));
+				
+			
+			}
+			
+			
+		
+		
+	  
+	  
+    } catch (SQLException e) {
+      out.println("An error occured while inserting " + "all HNI: " 
+          + e.toString());
+    } catch (ClassNotFoundException e) {
+      throw (new ServletException(e.toString()));
+    } finally {
+      try {
+        if (myStmt != null) {
+          myStmt.close();
+        }
+        if (conn != null) {
+          conn.close();
+        }
+      } catch (SQLException ex) {
+      }
+    }
+   
+  }
+}
+}
