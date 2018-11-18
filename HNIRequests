@@ -1,0 +1,119 @@
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.sql.Connection;
+import java.sql.Date;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+public class AllEmployeesServlet extends HttpServlet {
+  protected void doGet(HttpServletRequest request, HttpServletResponse response)
+      throws ServletException, IOException {
+ 
+	
+    try {
+     String url = "jdbc:mysql://localhost:3306/hni";
+		Connection myConn;
+		try{
+			
+			myConn = DriverManager.getConnection(url,"root","");
+			Statement myStmt = myConn.createStatement();
+			String WMName = "WMName";
+			String Session = "Session";
+			String date = "Date";
+			
+			
+			
+			//Connection con = DriverManager.getConnection(); 
+			//Statement st = con.createStatement(); 
+			//String str = SQL query; 
+			PrintWriter out = response.getWriter();
+			ResultSet myRs = st.executeQuery("select * from hni_requests"); 
+			out.println("<html><table><th>"); 
+			 
+			 
+			out.println("<td>"+WMName+"</td>");
+			out.println("<td>"+Session+"</td>");
+			out.println("<td>"+date+"</td>");
+				
+			 
+			out.println("</th>");
+			
+			out.println("<tr>");
+			String HNIName = request.getParameter("HNIName");
+			if(HNIName.equals("HNI1")){
+				while(myRs.next())
+				out.println("<td>"+myRs.getString("WMName")+"</td>");
+				out.println("<td>"+myRs.getString("Session")+"</td>");
+				out.println("<td>"+myRs.getString("Date")+"</td>");
+			}
+			out.println("</tr>");
+
+			
+			out.println("<tr>");
+			String HNIName = request.getParameter("HNIName");
+			if(HNIName.equals("HNI2")){
+				while(myRs.next())
+				out.println("<td>"+myRs.getString("WMName")+"</td>");
+				out.println("<td>"+myRs.getString("Session")+"</td>");
+				out.println("<td>"+myRs.getString("Date")+"</td>");
+			}
+			out.println("</tr>");
+
+			
+
+ 
+			out.println("<tr>");
+			String HNIName = request.getParameter("HNIName");
+			if(HNIName.equals("HNI3")){
+				while(myRs.next())
+				out.println("<td>"+myRs.getString("WMName")+"</td>");
+				out.println("<td>"+myRs.getString("Session")+"</td>");
+				out.println("<td>"+myRs.getString("Date")+"</td>");
+			}
+			out.println("</tr>");
+			
+			
+			
+			out.println("<tr>");
+			String HNIName = request.getParameter("HNIName");
+			if(HNIName.equals("HNI4")){
+				while(myRs.next())
+				out.println("<td>"+myRs.getString("WMName")+"</td>");
+				out.println("<td>"+myRs.getString("Session")+"</td>");
+				out.println("<td>"+myRs.getString("Date")+"</td>");
+			}
+			out.println("</tr>");
+
+			
+			out.println("</table></html>");
+		
+		
+	  
+	  
+    } catch (SQLException e) {
+      out.println("An error occured while inserting " + "all HNI: " 
+          + e.toString());
+    } catch (ClassNotFoundException e) {
+      throw (new ServletException(e.toString()));
+    } finally {
+      try {
+        if (myStmt != null) {
+          myStmt.close();
+        }
+        if (conn != null) {
+          conn.close();
+        }
+      } catch (SQLException ex) {
+      }
+    }
+   
+  }
+}
+}
