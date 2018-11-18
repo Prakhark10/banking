@@ -1,0 +1,89 @@
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.sql.Connection;
+import java.sql.Date;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+public class AllEmployeesServlet extends HttpServlet {
+  protected void doGet(HttpServletRequest request, HttpServletResponse response)
+      throws ServletException, IOException {
+    /*response.setContentType("text/html");
+    PrintWriter out = response.getWriter();
+    out.println("<html>");
+    out.println("<head><title>All Employees</title></head>");
+    out.println("<body>");
+    out.println("<center><h1>All Employees</h1>");*/
+    Connection conn = null;
+    Statement stmt = null;
+	
+    try {
+     String url = "jdbc:mysql://localhost:3306/hni";
+		Connection myConn;
+		try{
+			
+			myConn = DriverManager.getConnection(url,"root","");
+			Statement myStmt = myConn.createStatement();
+			
+			ResultSet myRs = myStmt.executeQuery("select * from company1");
+		
+		
+		 java.util.Date date = new SimpleDateFormat("yyyy-MM-dd").parse(rq.getParameter("getDate")); 
+		 String getWMuname = request.getParameter("WMUname");
+		 String getSession = request.getParameter("session");
+		 String getDescription = request.getParameter("description")
+     
+     /* while (rs.next()) {
+        int emailId = rs.getInt("id");
+        String employeeFirstName = rs.getString("first_name");
+        String employeeLastName = rs.getString("last_name");
+        Date employeeHiredate = rs.getDate("Hiredate");
+        String employeeEmail = rs.getString("email");
+        out.print(employeeSSN + "::");
+        out.print(employeeName + "::");
+        out.print(employeeSalary + "::");
+        out.print(employeeHiredate + "::");
+        out.print(employeeLocation + "::");
+      }*/
+	  
+	  String sql = "insert into hni_table values(?,?,?,?)";
+			PreparedStatement myStmt = myConn.prepareStatement(sql);
+			myStmt.setString(1, getWMuname);
+			myStmt.setString(2, date);
+			myStmt.setString(3, getSession);
+			myStmt.setString(4, getDescription);
+			
+			myStmt.execute();
+			
+			//System.out.println("Insertion complete..........");
+
+	  
+    } catch (SQLException e) {
+      out.println("An error occured while inserting " + "all HNI: " 
+          + e.toString());
+    } catch (ClassNotFoundException e) {
+      throw (new ServletException(e.toString()));
+    } finally {
+      try {
+        if (stmt != null) {
+          stmt.close();
+        }
+        if (conn != null) {
+          conn.close();
+        }
+      } catch (SQLException ex) {
+      }
+    }
+    out.println("</center>");
+    out.println("</body>");
+    out.println("</html>");
+    out.close();
+  }
+}
